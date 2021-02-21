@@ -1,9 +1,7 @@
 // todo extract this to an extra function for using on upgrading build
 import dynamoDb from '../../../lib/db';
 
-
 async function getBuildings(req, res) {
-  console.time('getBuildings');
   const { id } = req.query;
   console.log('getBuildings', id);
   if (!id) return res.status(406).json({ message: 'missing param id or p' });
@@ -18,7 +16,6 @@ async function getBuildings(req, res) {
   if (!Item) return res.status(403).json({ message: 'player not found' });
 
   return res.status(200).json(Item.buildings);
-
 }
 
 export default getBuildings;
