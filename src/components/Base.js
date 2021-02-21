@@ -4,7 +4,6 @@ import { devPlayerId } from '../static';
 import { BUILDINGS, BUILDINGS_ICONS } from '../static/buildings';
 import Button from './Button';
 
-
 function BuildingTypes({ p }) {
   async function createBuilding(type) {
     console.log('createBuilding', p, type);
@@ -27,8 +26,7 @@ function SelectedSlot({ selected, p }) {
   console.log({ selected });
   if (selected === null) return <BuildingTypes p={p} />;
 
-  function handleDelete() {
-  }
+  function handleDelete() {}
 
   return (
     <div className="">
