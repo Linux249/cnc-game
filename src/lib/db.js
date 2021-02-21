@@ -1,12 +1,13 @@
 import aws from 'aws-sdk';
 
+
 const client = new aws.DynamoDB.DocumentClient({
   accessKeyId: process.env.ACCESS_KEY,
   secretAccessKey: process.env.SECRET_KEY,
   region: process.env.REGION,
   params: {
-    TableName: process.env.TABLE_NAME
-  }
+    TableName: process.env.TABLE_NAME,
+  },
 });
 
 export default {
@@ -15,5 +16,5 @@ export default {
   query: (params) => client.query(params).promise(),
   scan: (params) => client.scan(params).promise(),
   update: (params) => client.update(params).promise(),
-  delete: (params) => client.delete(params).promise()
+  delete: (params) => client.delete(params).promise(),
 };

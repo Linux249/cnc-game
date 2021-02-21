@@ -1,4 +1,4 @@
-export default function Button({onClick, text}) {
+export default function Button({ onClick, text }) {
 
-  return <button className="border" onClick={onClick}>{text}</button>
+  return <button className='border' onClick={onClick}>{text}</button>;
 }

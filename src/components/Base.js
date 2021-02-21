@@ -17,10 +17,10 @@ export default function Base() {
   }
 
   return (
-    <div className="p-6 border  rounded-xl hover:text-blue-600 focus:text-blue-600">
+    <div className='p-6 border  rounded-xl hover:text-blue-600 focus:text-blue-600'>
       <h1>base</h1>
       <h3>Buildings</h3>
-      <Button onClick={collectResources} text="Collect Ressources"/>
+      <Button onClick={collectResources} text='Collect Ressources' />
     </div>
   );
 }

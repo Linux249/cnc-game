@@ -1,9 +1,9 @@
-import {LABEL_GOLD, LABEL_METAL, LABEL_XP} from '../static/labels';
+import { LABEL_GOLD, LABEL_METAL, LABEL_XP } from '../static/labels';
 
 
 function Image() {
 
-  return <div className="w-full h-24 bg-blue-800"/>
+  return <div className='w-full h-24 bg-blue-800' />;
 }
 
 
@@ -32,7 +32,7 @@ function generateResources(lvl = 0) {
 }
 
 export default function Card() {
-  const {title, lvl, resources} = {
+  const { title, lvl, resources } = {
     title: 'Camp',
     lvl: 15,
     resources: {
@@ -42,13 +42,13 @@ export default function Card() {
     },
   };
   return <a
-    href="/"
-    className="p-6 mt-6 text-left border w-60 rounded-xl hover:text-blue-600 focus:text-blue-600"
+    href='/'
+    className='p-6 mt-6 text-left border w-60 rounded-xl hover:text-blue-600 focus:text-blue-600'
   >
-    <h3 className="text-2xl font-bold mb-2">{title} 🥇 {lvl}</h3>
+    <h3 className='text-2xl font-bold mb-2'>{title} 🥇 {lvl}</h3>
     <Image />
-    <p className="mt-1 text-xl">{LABEL_METAL} {resources.metal}</p>
-    <p className=" text-xl">{LABEL_GOLD} {resources.gold}</p>
-    <p className=" text-xl">{LABEL_XP} {resources.xp}</p>
+    <p className='mt-1 text-xl'>{LABEL_METAL} {resources.metal}</p>
+    <p className=' text-xl'>{LABEL_GOLD} {resources.gold}</p>
+    <p className=' text-xl'>{LABEL_XP} {resources.xp}</p>
   </a>;
 }
