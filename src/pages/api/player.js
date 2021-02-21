@@ -1,7 +1,6 @@
 import * as uuid from 'uuid';
 import dynamoDb from '../../lib/db';
 
-
 const emptyBuilding = new Array(5).fill(null);
 
 async function handler(req, res) {
@@ -48,7 +47,6 @@ async function handler(req, res) {
       if (!Item) return res.status(403).json({ message: 'player not found' });
       return res.status(200).json(Item);
     }
-
   }
 
   if (req.method === 'POST') {

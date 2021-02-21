@@ -1,7 +1,6 @@
 // todo extract this to an extra function for using on upgrading build
 import dynamoDb from '../../../lib/db';
 
-
 async function resetBankFromPlayer(req, res) {
   console.time('reset bank');
   const { id } = req.query;
@@ -14,7 +13,6 @@ async function resetBankFromPlayer(req, res) {
     lastUpdated: Date.now(),
   };
   console.log({ newBank });
-
 
   const { Attributes } = await dynamoDb.update({
     Key: {
@@ -30,7 +28,6 @@ async function resetBankFromPlayer(req, res) {
   // send new resources back to client
   console.timeEnd('reset bank');
   return res.status(200).json(Attributes);
-
 }
 
 export default resetBankFromPlayer;

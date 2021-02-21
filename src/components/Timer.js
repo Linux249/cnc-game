@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-
 export default function Timer() {
   // save the current timer intervall, can increase ticks
   const [interv, setInterv] = useState(1000);
@@ -18,5 +17,11 @@ export default function Timer() {
     return () => clearInterval(t);
   }, []);
 
-  return <h1>Timer: {Math.round(interv / 1000)}s Ticks: {ticks}</h1>;
+  return (
+    <div className="card">
+      <h1>
+        Timer: {Math.round(interv / 1000)}s Ticks: {ticks}
+      </h1>
+    </div>
+  );
 }

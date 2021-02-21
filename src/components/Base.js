@@ -4,6 +4,7 @@ import { devPlayerId } from '../static';
 import { BUILDINGS, BUILDINGS_ICONS } from '../static/buildings';
 import Button from './Button';
 
+
 function BuildingTypes({ p }) {
   async function createBuilding(type) {
     console.log('createBuilding', p, type);
@@ -25,10 +26,17 @@ function BuildingTypes({ p }) {
 function SelectedSlot({ selected, p }) {
   console.log({ selected });
   if (selected === null) return <BuildingTypes p={p} />;
+
+  function handleDelete() {
+  }
+
   return (
     <div className="">
       <div>type: {BUILDINGS_ICONS[+selected?.type]}</div>
       <div>lvl: {selected?.lvl}</div>
+      <div>
+        <Button onClick={handleDelete} text="delete building" />
+      </div>
     </div>
   );
 }
@@ -65,7 +73,7 @@ export default function Base() {
 
   return (
     <div className="flex">
-      <div className="p-6 border rounded-xl hover:bg-grey-400 focus:text-blue-600">
+      <div className="card">
         <h1>base</h1>
         <h3>Buildings - selected: {selected}</h3>
         <Button onClick={() => upgradeBuilding(2)} text="upgrade building 2" />
@@ -75,7 +83,7 @@ export default function Base() {
           ))}
         </div>
       </div>
-      <div className="p-6 border rounded-xl">
+      <div className="card w-48">
         {selected !== null && <SelectedSlot p={selected} selected={selectedSlot} />}
       </div>
     </div>
