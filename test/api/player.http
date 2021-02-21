@@ -1,0 +1,27 @@
+GET http://localhost:3000/api/player
+Content-Type: application/json
+
+{}
+
+### expected return: Error
+
+PUT http://localhost:3000/api/player
+Content-Type: application/json
+
+{}
+
+### expexted return: player
+
+
+GET http://localhost:3000/api/player?id=9b67703b-7aa8-4166-8ca6-5ad52c95007c
+Content-Type: application/json
+
+{}
+
+### expexted return: player
+DELETE http://localhost:3000/api/player?id=9b67703b-7aa8-4166-8ca6-5ad52c95007c
+Content-Type: application/json
+
+{}
+
+### expexted return: {}
