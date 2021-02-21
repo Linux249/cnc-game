@@ -24,25 +24,28 @@ async function upgradeBuilding(req, res) {
     },
     ProjectionExpression: 'buildings, bank',
   });
+
   console.log(Item);
   if (!Item) return res.status(406).json({ message: 'missing param id or p' });
   const { buildings, bank } = Item;
   if (type) {
-    // create building
-    console.log('create building');
-    buildings[p] = {
-      type,
-      lvl: 1,
-    };
+    if (type === '-1') {
+      // -1 = delete,
+      buildings[p] = null;
+    } else {
+      // else create building
+      console.log('create building');
+      buildings[p] = {
+        type,
+        lvl: 1,
+      };
+    }
   } else if (buildings[p] && buildings[p].lvl < BUILDING_MAX_LEVEL) {
     // increase level
     console.log('increase level');
     buildings[p].lvl += 1;
-  } else {
-    // delete Building
-    console.log('delete Building');
-    buildings[p] = null;
   }
+
   const { Attributes } = await dynamoDb.update({
     Key: {
       id: id,

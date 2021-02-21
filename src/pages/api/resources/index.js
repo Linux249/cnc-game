@@ -28,7 +28,7 @@ async function getCurrentResources(req, res) {
     power: prod.power * hPast + bank.power,
     lastUpdated: now,
   };
-  console.log({ newBank });
+  // console.log({ newBank });
 
   const { Attributes } = await dynamoDb.update({
     Key: {

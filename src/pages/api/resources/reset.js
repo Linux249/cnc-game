@@ -12,7 +12,7 @@ async function resetBankFromPlayer(req, res) {
     power: 0,
     lastUpdated: Date.now(),
   };
-  console.log({ newBank });
+  // console.log({ newBank });
 
   const { Attributes } = await dynamoDb.update({
     Key: {

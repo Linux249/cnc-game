@@ -26,14 +26,23 @@ function SelectedSlot({ selected, p }) {
   console.log({ selected });
   if (selected === null) return <BuildingTypes p={p} />;
 
-  function handleDelete() {}
+  function increaseLevel() {
+    console.log('increase level', p);
+    return fetch(`/api/buildings/upgrade?p=${p}&id=${devPlayerId}`);
+  }
+
+  function handleDelete() {
+    console.log('delete building', p);
+    return fetch(`/api/buildings/upgrade?p=${p}&id=${devPlayerId}&type=-1`);
+  }
 
   return (
     <div className="">
       <div>type: {BUILDINGS_ICONS[+selected?.type]}</div>
       <div>lvl: {selected?.lvl}</div>
       <div>
-        <Button onClick={handleDelete} text="delete building" />
+        <Button onClick={increaseLevel} text="upgrade level" />
+        <Button onClick={handleDelete} text="delete" />
       </div>
     </div>
   );
