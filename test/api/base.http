@@ -1,0 +1,25 @@
+
+# gereate building with sending type and p
+GET http://localhost:3000/api/base/upgrade?type=0&p=2&id=d8d9e9c0-b3d7-4974-ae6e-3d2d7bdd3a1a
+Content-Type: application/json
+
+{}
+
+### expexted return: player
+
+# upgrade level (only p), building has to exist
+GET http://localhost:3000/api/base/upgrade?p=2&id=d8d9e9c0-b3d7-4974-ae6e-3d2d7bdd3a1a
+Content-Type: application/json
+
+{}
+
+### expexted return: player
+
+# delete item
+GET http://localhost:3000/api/base/upgrade?p=2&id=d8d9e9c0-b3d7-4974-ae6e-3d2d7bdd3a1a
+Content-Type: application/json
+
+{}
+
+### expexted return: player
+

@@ -2,11 +2,14 @@ import * as uuid from 'uuid';
 import dynamoDb from '../../lib/db';
 
 
+const emptyBuilding = new Array(5).fill(null);
+
 async function handler(req, res) {
   console.log('/api/player', req.method);
   if (req.method === 'PUT') {
     const player = {
       id: uuid.v4(),
+      buildings: emptyBuilding,
       prod: {
         metal: 100,
         gold: 30,

@@ -1,10 +1,11 @@
 import useSWR from 'swr';
+import { devPlayerId } from '../static';
 import { LABEL_GOLD, LABEL_METAL, LABEL_POWER, LABEL_XP } from '../static/labels';
 import Button from './Button';
 import Loading from './Loading';
 
 
-const id = '2bb1c6e5-69ef-4971-bfd7-4feb4c2ff954';
+const id = devPlayerId;
 
 export default function CurrentResources() {
   // todo update in interval or through "requests"
