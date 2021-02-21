@@ -1,4 +1,5 @@
 import dynamoDb from '../../../lib/db';
+import { getBuildingCost, POWER_COST_FACTOR } from '../../../static/buildings';
 
 const BUILDING_MAX_LEVEL = 50;
 
@@ -31,6 +32,7 @@ async function upgradeBuilding(req, res) {
   if (type) {
     if (type === '-1') {
       // -1 = delete,
+      // todo give resources back on delete
       buildings[p] = null;
     } else {
       // else create building
@@ -43,16 +45,21 @@ async function upgradeBuilding(req, res) {
   } else if (buildings[p] && buildings[p].lvl < BUILDING_MAX_LEVEL) {
     // increase level
     console.log('increase level');
+    const cost = getBuildingCost(buildings[p].type, buildings[p].lvl);
     buildings[p].lvl += 1;
+    bank.metal -= cost;
+    bank.power -= cost / POWER_COST_FACTOR;
+    // reduce costs from bank
   }
 
   const { Attributes } = await dynamoDb.update({
     Key: {
       id: id,
     },
-    UpdateExpression: 'SET buildings = :buildings',
+    UpdateExpression: 'SET buildings = :bu, bank = :ba',
     ExpressionAttributeValues: {
-      ':buildings': buildings,
+      ':bu': buildings,
+      ':ba': bank,
     },
     ReturnValues: 'ALL_NEW',
   });

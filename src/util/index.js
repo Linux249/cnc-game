@@ -1,1 +1,1 @@
-export const short = v => (v ? Math.floor(v * 100) / 100 : 0);
+export const short = v => (v ? Math.floor(v) : 0);

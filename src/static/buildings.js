@@ -3,7 +3,7 @@ export const BUILDING_METAL = 1;
 export const BUILDING_GOLD = 2;
 export const BUILDING_POWER = 3;
 export const BUILDING_ARMY = 4;
-export const BUILDING_DEFENS = 5;
+export const BUILDING_DEFENSE = 5;
 
 export const BUILDING_BASE_ICON = '🎮';
 export const BUILDING_METAL_ICON = '🏭';
@@ -18,7 +18,7 @@ export const BUILDINGS = [
   BUILDING_GOLD,
   BUILDING_POWER,
   BUILDING_ARMY,
-  BUILDING_DEFENS,
+  BUILDING_DEFENSE,
 ];
 
 export const BUILDINGS_ICONS = [
@@ -36,9 +36,10 @@ export const BUILDINGS_COSTS = [
   BUILDING_GOLD,
   BUILDING_POWER,
   BUILDING_ARMY,
-  BUILDING_DEFENS,
+  BUILDING_DEFENSE,
 ];
-
+// power cost are normal relative to this
+export const POWER_COST_FACTOR = 4;
 const SILO_BASE_COST = 100;
 const BUILDING_BASE_COST_GROWTH = 1.25;
 
