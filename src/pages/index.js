@@ -4,7 +4,7 @@ import Card from '../components/Card';
 import Char from '../components/Char';
 import CurrentResources from '../components/CurrentResources';
 import Timer from '../components/Timer';
-
+import Typography from '../components/typography';
 
 export default function Home() {
   return (
@@ -13,7 +13,8 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='flex flex-col items-center justify-center flex-1 px-20 text-center '>
+      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center ">
+        <Typography />
         <Timer />
         <Char />
         <CurrentResources />

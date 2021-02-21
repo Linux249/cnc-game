@@ -2,13 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
-
-button {
-    font-weight: bold;
-    @apply font-mono;
+h1 {
+  @apply text-5xl;
 }
 
+h2 {
+  @apply text-4xl;
+}
+
+h3 {
+  @apply text-3xl;
+}
+
+h4 {
+  @apply text-2xl;
+}
+
+h5 {
+  @apply text-xl;
+}
+
+h6 {
+  @apply text-lg;
+}
+
+p {
+  @apply text-base font-sans;
+}
+
+button {
+  @apply py-2 px-4 bg-indigo-200;
+  @apply text-sm font-medium font-mono text-indigo-600 hover:bg-indigo-50;
+  @apply border-transparent rounded-md shadow-sm;
+}
 
 .card {
-    @apply p-6 border rounded-xl hover:bg-gray-100;
+  @apply p-6 border rounded-xl hover:bg-gray-50;
 }
