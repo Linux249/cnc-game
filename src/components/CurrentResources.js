@@ -1,16 +1,30 @@
 import useSWR from 'swr';
-import { LABEL_GOLD, LABEL_METAL, LABEL_XP } from '../static/labels';
+import { LABEL_GOLD, LABEL_METAL, LABEL_POWER, LABEL_XP } from '../static/labels';
+import Button from './Button';
+import Loading from './Loading';
 
 
 const id = '2bb1c6e5-69ef-4971-bfd7-4feb4c2ff954';
 
 export default function CurrentResources() {
   // todo update in interval or through "requests"
-  const { data } = useSWR('/api/resources?id=' + id);
-  console.log(data);
+  const { data, isValidating } = useSWR('/api/resources?id=' + id, {refreshInterval: 20000});
+  console.log({ data });
+
+  function reset() {
+    return fetch('/api/resources/reset?id=' + id);
+  }
+  const metal = Math.floor(data?.bank.metal)
+  const gold = data?.bank.gold
+  const power = data?.bank.power
+  const xp = data?.bank.xp
+
   return <div>
-    <p className='mt-1 text-xl'>{LABEL_METAL} {data?.bank.metal}</p>
-    <p className=' text-xl'>{LABEL_GOLD} {data?.bank.gold}</p>
-    <p className=' text-xl'>{LABEL_XP} {data?.bank.xp}</p>
+    {!data || isValidating && <Loading />}
+    <p className='mt-1 text-xl'>{LABEL_METAL} {metal}</p>
+    <p className=' text-xl'>{LABEL_GOLD} {gold}</p>
+    <p className=' text-xl'>{LABEL_POWER} {power}</p>
+    <p className=' text-xl'>{LABEL_XP} {xp}</p>
+    <Button onClick={reset} text='Reset' />
   </div>;
 }

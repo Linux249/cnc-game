@@ -18,6 +18,7 @@ async function handler(req, res) {
         power: 400,
         lastUpdated: Date.now(),
       },
+      since: 0,
       createdAt: Date.now(),
     };
 
@@ -48,7 +49,16 @@ async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
-
+    const { Attributes } = await dynamoDb.update({
+      Key: {
+        id: req.body.id,
+      },
+      UpdateExpression: 'SET content = :content',
+      ExpressionAttributeValues: {
+        ':content': req.body.content || null,
+      },
+      ReturnValues: 'ALL_NEW',
+    });
 
     return res.status(200).json(Attributes);
   }
