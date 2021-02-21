@@ -5,20 +5,21 @@ import Button from './Button';
 import Loading from './Loading';
 
 
-const id = devPlayerId;
+const short = v => v ? Math.floor(v * 100) / 100 : 0;
 
 export default function CurrentResources() {
   // todo update in interval or through "requests"
-  const { data, isValidating } = useSWR('/api/resources?id=' + id, {refreshInterval: 20000});
-  console.log({ data });
+  const { data, isValidating } = useSWR('/api/resources?id=' + devPlayerId, { refreshInterval: 20000 });
+  console.log('CurrentResources', { data, id: devPlayerId });
 
   function reset() {
-    return fetch('/api/resources/reset?id=' + id);
+    return fetch('/api/resources/reset?id=' + devPlayerId);
   }
-  const metal = Math.floor(data?.bank.metal)
-  const gold = data?.bank.gold
-  const power = data?.bank.power
-  const xp = data?.bank.xp
+
+  const metal = short(data?.bank.metal);
+  const gold = short(data?.bank.gold);
+  const power = short(data?.bank.power);
+  const xp = short(data?.bank.xp);
 
   return <div>
     {!data || isValidating && <Loading />}

@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Base from '../components/Base';
 import Card from '../components/Card';
 import Char from '../components/Char';
 import CurrentResources from '../components/CurrentResources';
@@ -12,11 +13,11 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-
-      <Timer />
-      <Char />
-      <CurrentResources />
       <main className='flex flex-col items-center justify-center flex-1 px-20 text-center '>
+        <Timer />
+        <Char />
+        <CurrentResources />
+        <Base />
         <h1 className='text-6xl font-bold'>
           Welcome to{' '}
           <a className='text-blue-600' href='https://nextjs.org'>
