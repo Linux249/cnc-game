@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import useSWR from 'swr';
 import { devPlayerId } from '../static';
-import { BUILDINGS, BUILDINGS_ICONS } from '../static/buildings';
+import { BUILDINGS, BUILDINGS_ICONS, getBuildingCost } from '../static/buildings';
+import { short } from '../util';
 import Button from './Button';
 
 function BuildingTypes({ p }) {
@@ -35,11 +36,13 @@ function SelectedSlot({ selected, p }) {
     console.log('delete building', p);
     return fetch(`/api/buildings/upgrade?p=${p}&id=${devPlayerId}&type=-1`);
   }
-
+  const cost = getBuildingCost(selected.type, selected.lvl);
   return (
-    <div className="">
+    <div className="text-left">
       <div>type: {BUILDINGS_ICONS[+selected?.type]}</div>
       <div>lvl: {selected?.lvl}</div>
+      <h4>costs: {short(cost)}</h4>
+      <h4>costs: {short(cost / 4)}</h4>
       <div>
         <Button onClick={increaseLevel} text="upgrade level" />
         <Button onClick={handleDelete} text="delete" />

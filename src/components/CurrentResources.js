@@ -1,10 +1,9 @@
 import useSWR from 'swr';
 import { devPlayerId } from '../static';
 import { LABEL_GOLD, LABEL_METAL, LABEL_POWER, LABEL_XP } from '../static/labels';
+import { short } from '../util';
 import Button from './Button';
 import Loading from './Loading';
-
-const short = v => (v ? Math.floor(v * 100) / 100 : 0);
 
 export default function CurrentResources() {
   // todo update in interval or through "requests"
