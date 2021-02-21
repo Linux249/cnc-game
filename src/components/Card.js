@@ -1,12 +1,11 @@
+import {LABEL_GOLD, LABEL_METAL, LABEL_XP} from '../static/labels';
+
 
 function Image() {
 
   return <div className="w-full h-24 bg-blue-800"/>
 }
 
-const LABEL_METAL = '🪨';
-const LABEL_GOLD = '⭐';
-const LABEL_XP = '🔬';
 
 const RESOURCES_GROWTH_CAMP = 1.25;
 

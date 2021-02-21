@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Card from '../components/Card';
 import Char from '../components/Char';
+import CurrentResources from '../components/CurrentResources';
 import Timer from '../components/Timer';
 
 
@@ -14,6 +15,7 @@ export default function Home() {
 
       <Timer />
       <Char />
+      <CurrentResources />
       <main className="flex flex-col items-center justify-center flex-1 px-20 text-center ">
         <h1 className="text-6xl font-bold">
           Welcome to{' '}
