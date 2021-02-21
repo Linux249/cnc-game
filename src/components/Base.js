@@ -35,10 +35,12 @@ function SelectedSlot({ selected, p }) {
 
 function Building({ building, select, active }) {
   console.log(active);
-  const cardStyle = active ? ' border-8 bg-red-100' : 'bg-blue-800';
+  const cardStyle = active
+    ? ' border-8 bg-red-100'
+    : 'bg-gradient-to-r  from-transparent from-red-400 to-blue-400';
   return (
     <div onClick={select} className={'w-32 h-32 ' + cardStyle}>
-      <h1>{BUILDINGS_ICONS[building?.type]}</h1>
+      <span className="text-8xl">{BUILDINGS_ICONS[building?.type]}</span>
       <p>{building?.lvl}</p>
     </div>
   );
