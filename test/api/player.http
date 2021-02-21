@@ -13,13 +13,13 @@ Content-Type: application/json
 ### expexted return: player
 
 
-GET http://localhost:3000/api/player?id=9b67703b-7aa8-4166-8ca6-5ad52c95007c
+GET http://localhost:3000/api/player?id=399011e1-408f-46e5-bfc1-2068b43f2c0c
 Content-Type: application/json
 
 {}
 
 ### expexted return: player
-DELETE http://localhost:3000/api/player?id=9b67703b-7aa8-4166-8ca6-5ad52c95007c
+DELETE http://localhost:3000/api/player?id=399011e1-408f-46e5-bfc1-2068b43f2c0c
 Content-Type: application/json
 
 {}

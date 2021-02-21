@@ -3,7 +3,7 @@ import dynamoDb from '../../lib/db';
 
 
 async function handler(req, res) {
-  console.log('/api/item', req.method);
+  console.log('/api/player', req.method);
   if (req.method === 'PUT') {
     const player = {
       id: uuid.v4(),
@@ -11,12 +11,12 @@ async function handler(req, res) {
         metal: 100,
         gold: 30,
         power: 40,
-        lastUpdated: Date.now(),
       },
       bank: {
         metal: 1000,
         gold: 300,
         power: 400,
+        lastUpdated: Date.now(),
       },
       createdAt: Date.now(),
     };
@@ -30,7 +30,7 @@ async function handler(req, res) {
 
   if (req.method === 'GET') {
     if (!req.query.id) {
-      const Items = await dynamoDb.scan({});
+      const { Items } = await dynamoDb.scan({});
       console.log(Items);
       return res.status(200).json(Items);
     } else {
@@ -48,16 +48,7 @@ async function handler(req, res) {
   }
 
   if (req.method === 'POST') {
-    const { Attributes } = await dynamoDb.update({
-      Key: {
-        id: req.body.id,
-      },
-      UpdateExpression: 'SET content = :content',
-      ExpressionAttributeValues: {
-        ':content': req.body.content || null,
-      },
-      ReturnValues: 'ALL_NEW',
-    });
+
 
     return res.status(200).json(Attributes);
   }

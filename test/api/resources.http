@@ -1,0 +1,6 @@
+GET http://localhost:3000/api/resources?id=2bb1c6e5-69ef-4971-bfd7-4feb4c2ff954
+Content-Type: application/json
+
+{}
+
+### expexted return: player
