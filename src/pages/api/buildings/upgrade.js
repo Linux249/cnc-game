@@ -1,12 +1,22 @@
 import dynamoDb from '../../../lib/db';
 
-
 const BUILDING_MAX_LEVEL = 50;
 
+/**
+ * conditions:
+ *   - id of player
+ *   - p for position/slot
+ *   - id type: create
+ *   - if building exist -> lvl up
+ *   -
+ * @param req
+ * @param res
+ * @returns {Promise<any>}
+ */
 async function upgradeBuilding(req, res) {
   // calc costs for this building
   const { p, type, id } = req.query;
-  console.log({ p, type, id })
+  console.log({ p, type, id });
   if (!p || !id) return res.status(406).json({ message: 'missing param id or p' });
   const { Item } = await dynamoDb.get({
     Key: {

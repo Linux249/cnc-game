@@ -4,18 +4,27 @@ import { devPlayerId } from '../static';
 import { BUILDINGS, BUILDINGS_ICONS } from '../static/buildings';
 import Button from './Button';
 
-function BuildingTypes() {
+function BuildingTypes({ p }) {
+  async function createBuilding(type) {
+    console.log('createBuilding', p, type);
+    return fetch(`/api/buildings/upgrade?p=${p}&type=${type}&id=${devPlayerId}`);
+  }
+
   return (
-    <div className="grid grid-cols-3">
-      {BUILDINGS.map(b => (
-        <span>{BUILDINGS_ICONS[b]}</span>
-      ))}
+    <div>
+      <h1>Select new building</h1>
+      <div className="grid grid-cols-3 text-3xl">
+        {BUILDINGS.map(b => (
+          <span onClick={() => createBuilding(b)}>{BUILDINGS_ICONS[b]}</span>
+        ))}
+      </div>
     </div>
   );
 }
 
-function SelectedSlot({ selected }) {
-  if (selected === null) return <BuildingTypes />;
+function SelectedSlot({ selected, p }) {
+  console.log({ selected });
+  if (selected === null) return <BuildingTypes p={p} />;
   return (
     <div className="">
       <div>type: {BUILDINGS_ICONS[+selected?.type]}</div>
@@ -65,7 +74,7 @@ export default function Base() {
         </div>
       </div>
       <div className="p-6 border rounded-xl">
-        {selected !== null && <SelectedSlot selected={selectedSlot} />}
+        {selected !== null && <SelectedSlot p={selected} selected={selectedSlot} />}
       </div>
     </div>
   );
