@@ -46,7 +46,12 @@ export default function Base({ id }) {
           <h6>Selected: {selected}</h6>
           <div className="grid grid-cols-3 gap-8">
             {buildings?.map((b, i) => (
-              <Building building={b} select={() => handleSelect(i)} active={selected === i} />
+              <Building
+                key={i}
+                building={b}
+                select={() => handleSelect(i)}
+                active={selected === i}
+              />
             ))}
           </div>
         </div>

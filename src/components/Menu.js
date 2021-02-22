@@ -16,18 +16,19 @@ export default function Menu({ id, setID }) {
       <h1>Menu</h1>
       <h4>Current players</h4>
       {players?.map((p, i) => (
-        <Button onClick={() => select(i)} text={p.id.slice(0, 6)} />
+        <Button key={p.id} onClick={() => select(i)} text={p.id.slice(0, 6)} />
       ))}
       <br />
       <Button onClick={() => fetch('/api/player/create')} text="D: create" />
       <h4>select player</h4>
       {players?.map((p, i) => (
-        <Button onClick={() => select(i)} text={p.id.slice(0, 6)} active={p.id === id} />
+        <Button key={p.id} onClick={() => select(i)} text={p.id.slice(0, 6)} active={p.id === id} />
       ))}
 
       <h4>delete player</h4>
-      {players?.map((p, i) => (
+      {players?.map(p => (
         <Button
+          key={p.id}
           error
           onClick={() => fetch('/api/player/delete?id=' + p.id)}
           text={`Del: ${p.id.slice(0, 6)}`}

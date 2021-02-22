@@ -37,9 +37,14 @@ button {
 }
 
 .card {
-  @apply p-6 border rounded-xl;
+  @apply p-6 border rounded-xl
 }
 
 .icon {
   @apply px-1.5 shadow rounded-xl;
+}
+
+.overlay-container {
+  @apply absolute top-0 bottom-0 right-0 left-0;
+  @apply flex justify-center items-center ;
 }

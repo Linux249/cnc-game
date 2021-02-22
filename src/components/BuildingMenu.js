@@ -20,7 +20,9 @@ function BuildingTypes({ p, id }) {
       <h6>create building</h6>
       <div className="grid grid-cols-2 text-5xl gap-1 mt-2">
         {BUILDINGS.map(b => (
-          <span onClick={() => createBuilding(b)}>{BUILDINGS_ICONS[b]}</span>
+          <span key={b} onClick={() => createBuilding(b)}>
+            {BUILDINGS_ICONS[b]}
+          </span>
         ))}
       </div>
     </div>

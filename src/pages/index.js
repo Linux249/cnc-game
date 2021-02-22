@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Base from '../components/Base';
 import Card from '../components/Card';
 import Menu from '../components/Menu';
+import Overlay from '../components/Overlay';
 import Typography from '../components/typography';
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Overlay />
       <main className="flex flex-col items-center justify-center flex-1 px-20">
         <h1 className="text-6xl mb-3 font-bold">Welcome to cnc-game</h1>
 
