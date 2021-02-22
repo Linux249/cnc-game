@@ -31,14 +31,10 @@ function generateResources(lvl = 0) {
   };
 }
 
-export default function Card() {
-  const { data } = useSWR('/api/army/card');
-  if (!data) return <div>loading</div>;
-  const { title, lvl, resources, attack, defense } = data;
+export default function Card({ card }) {
+  const { title, lvl, resources, attack, defense } = card;
   return (
-    <a
-      href="/"
-      className="p-6 mt-6 text-left border w-60 rounded-xl hover:text-blue-600 focus:text-blue-600">
+    <div className="p-6 mt-6 text-left border w-60 rounded-xl hover:text-blue-600 focus:text-blue-600">
       <h3 className="text-2xl font-bold mb-2">
         {title} 🥇 {lvl}
       </h3>
@@ -64,6 +60,6 @@ export default function Card() {
           </p>
         </div>
       </div>
-    </a>
+    </div>
   );
 }

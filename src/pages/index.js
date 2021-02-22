@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useState } from 'react';
+import Army from '../components/Army';
 import Base from '../components/Base';
 import Card from '../components/Card';
 import Menu from '../components/Menu';
@@ -25,9 +26,7 @@ export default function Home() {
 
         {id && <Base id={id} />}
 
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <Card />
-        </div>
+        <Army />
       </main>
 
       <footer className="flex items-center justify-center w-full h-24 border-t">
