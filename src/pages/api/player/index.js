@@ -1,35 +1,8 @@
 import * as uuid from 'uuid';
-import dynamoDb from '../../lib/db';
-
-const emptyBuilding = new Array(5).fill(null);
+import dynamoDb from '../../../lib/db';
 
 async function handler(req, res) {
   console.log('/api/player', req.method);
-  if (req.method === 'PUT') {
-    const player = {
-      id: uuid.v4(),
-      buildings: emptyBuilding,
-      prod: {
-        metal: 100,
-        gold: 30,
-        power: 40,
-      },
-      bank: {
-        metal: 1000,
-        gold: 300,
-        power: 400,
-        lastUpdated: Date.now(),
-      },
-      since: 0,
-      createdAt: Date.now(),
-    };
-
-    await dynamoDb.put({
-      Item: player,
-    });
-
-    res.status(201).json(player);
-  }
 
   if (req.method === 'GET') {
     if (!req.query.id) {
@@ -49,6 +22,7 @@ async function handler(req, res) {
     }
   }
 
+  // todo dont use, just an example
   if (req.method === 'POST') {
     const { Attributes } = await dynamoDb.update({
       Key: {
@@ -62,16 +36,6 @@ async function handler(req, res) {
     });
 
     return res.status(200).json(Attributes);
-  }
-
-  if (req.method === 'DELETE') {
-    await dynamoDb.delete({
-      Key: {
-        id: req.query.id,
-      },
-    });
-
-    return res.status(204).json({});
   }
 }
 
