@@ -1,0 +1,13 @@
+# GET Resources - will also update the current
+GET http://localhost:3000/api/army/card
+Content-Type: application/json
+
+{}
+
+### expexted return:
+
+# NAME rest the recources
+GET http://localhost:3000/api/resources/reset?id={{id}}
+Content-Type: application/json
+
+### expexted return: player

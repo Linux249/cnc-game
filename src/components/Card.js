@@ -1,4 +1,7 @@
+import useSWR from 'swr';
+import { BUILDING_ARMY_ICON, BUILDING_DEFENS_ICON } from '../static/buildings';
 import { LABEL_GOLD, LABEL_METAL, LABEL_XP } from '../static/labels';
+import { short } from '../util';
 
 function Image() {
   return <div className="w-full h-24 bg-blue-800" />;
@@ -29,15 +32,9 @@ function generateResources(lvl = 0) {
 }
 
 export default function Card() {
-  const { title, lvl, resources } = {
-    title: 'Camp',
-    lvl: 15,
-    resources: {
-      metal: 100,
-      gold: 50,
-      xp: 400,
-    },
-  };
+  const { data } = useSWR('/api/army/card');
+  if (!data) return <div>loading</div>;
+  const { title, lvl, resources, attack, defense } = data;
   return (
     <a
       href="/"
@@ -46,15 +43,27 @@ export default function Card() {
         {title} 🥇 {lvl}
       </h3>
       <Image />
-      <p className="mt-1 text-xl">
-        {LABEL_METAL} {resources.metal}
-      </p>
-      <p className=" text-xl">
-        {LABEL_GOLD} {resources.gold}
-      </p>
-      <p className=" text-xl">
-        {LABEL_XP} {resources.xp}
-      </p>
+      <div className="grid grid-cols-2">
+        <div>
+          <p className="mt-1 text-xl">
+            {LABEL_METAL} {short(resources.metal)}
+          </p>
+          <p className=" text-xl">
+            {LABEL_GOLD} {short(resources.gold)}
+          </p>
+          <p className=" text-xl">
+            {LABEL_XP} {short(resources.xp)}
+          </p>
+        </div>
+        <div>
+          <p className="mt-1 text-xl">
+            {BUILDING_ARMY_ICON} {attack}
+          </p>
+          <p className=" text-xl">
+            {BUILDING_DEFENS_ICON} {defense}
+          </p>
+        </div>
+      </div>
     </a>
   );
 }
