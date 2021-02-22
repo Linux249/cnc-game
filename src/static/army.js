@@ -17,16 +17,17 @@ export function getResources(lvl) {
   };
 }
 
-export function plusOne() {
-  return Math.floor(Math.random() * percentLvlOne * 2 - percentLvlOne);
+export function plusOne(lvl) {
+  const newLvl = lvl + Math.floor(Math.random() * percentLvlOne * 2 - percentLvlOne);
+  return newLvl > 1 ? newLvl : 1;
 }
 
 export function generateCard(lvl) {
   return {
     title: 'Camp',
-    lvl: lvl + plusOne(),
-    resources: getResources(lvl + plusOne()),
-    attack: lvl + plusOne(),
-    defense: lvl + plusOne(),
+    lvl: plusOne(lvl),
+    resources: getResources(plusOne(lvl)),
+    attack: plusOne(lvl),
+    defense: plusOne(lvl),
   };
 }

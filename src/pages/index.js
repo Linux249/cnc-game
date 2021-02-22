@@ -26,7 +26,7 @@ export default function Home() {
 
         {id && <Base id={id} />}
 
-        <Army />
+        {id && <Army id={id} />}
       </main>
 
       <footer className="flex items-center justify-center w-full h-24 border-t">
