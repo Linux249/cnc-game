@@ -10,10 +10,10 @@ async function getCurrentResources(req, res) {
     Key: {
       id: id,
     },
-    ProjectionExpression: 'bank, prod',
+    ProjectionExpression: 'prod, bank.lastUpdated',
   });
   if (!Item) return res.status(403).json({ message: 'player not found' });
-
+  console.log(Item);
   const { prod, bank } = Item;
 
   // calc ms since last update
@@ -21,22 +21,18 @@ async function getCurrentResources(req, res) {
   const hPast = (now - bank.lastUpdated) / 1000 / 60 / 60;
   console.log('time, passed (h, m, s)', hPast, hPast * 60, hPast * 60 * 60);
 
-  // calc extra recourse since last calc/update
-  const newBank = {
-    metal: prod.metal * hPast + bank.metal,
-    gold: prod.gold * hPast + bank.gold,
-    power: prod.power * hPast + bank.power,
-    lastUpdated: now,
-  };
   // console.log({ newBank });
 
   const { Attributes } = await dynamoDb.update({
     Key: {
       id: id,
     },
-    UpdateExpression: 'SET bank = :bank',
+    UpdateExpression: 'ADD bank.metal :m, bank.gold :g, bank.power :p SET bank.lastUpdated = :d',
     ExpressionAttributeValues: {
-      ':bank': newBank,
+      ':m': prod.metal * hPast,
+      ':g': prod.gold * hPast,
+      ':p': prod.power * hPast,
+      ':d': now,
     },
     ReturnValues: 'ALL_NEW',
   });
