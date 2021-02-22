@@ -22,21 +22,21 @@ export default function CurrentResources() {
   const xp = short(data?.bank.xp);
 
   return (
-    <div className="card">
+    <div className="card flex gap-4 align-center">
       {!data || (isValidating && <Loading />)}
-      <p className="mt-1 text-xl">
+      <h4>
         {LABEL_METAL} {metal}
-      </p>
-      <p className=" text-xl">
+      </h4>
+      <h4>
         {LABEL_GOLD} {gold}
-      </p>
-      <p className=" text-xl">
+      </h4>
+      <h4>
         {LABEL_POWER} {power}
-      </p>
-      <p className=" text-xl">
+      </h4>
+      <h4>
         {LABEL_XP} {xp}
-      </p>
-      <Button onClick={reset} text="Reset" />
+      </h4>
+      <Button onClick={reset} text="D: Reset" />
     </div>
   );
 }

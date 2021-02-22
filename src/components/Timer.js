@@ -18,10 +18,10 @@ export default function Timer() {
   }, []);
 
   return (
-    <div className="card">
-      <h1>
+    <div className="">
+      <h3>
         Timer: {Math.round(interv / 1000)}s Ticks: {ticks}
-      </h1>
+      </h3>
     </div>
   );
 }
