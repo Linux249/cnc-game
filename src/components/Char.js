@@ -1,9 +1,6 @@
 import useSWR from 'swr';
+import { BUILDING_ARMY_ICON, BUILDING_BASE_ICON, BUILDING_DEFENS_ICON } from '../static/buildings';
 import Timer from './Timer';
-
-const LABEL_LVL_CHAR = '🎮';
-const LABEL_LVL_ARMY = '⚔️';
-const LABEL_LVL_DEF = '🛡';
 
 export default function Char({ id }) {
   if (!id && false) return null;
@@ -11,9 +8,9 @@ export default function Char({ id }) {
   const { data: player } = useSWR(`/api/player?id=${id}`);
   if (!player) return <h3>loading</h3>;
 
-  const charLevel = `${LABEL_LVL_CHAR} ${player.hero.level}`;
-  const armyLeveL = `${LABEL_LVL_ARMY} ${player.hero.army}`;
-  const defenseLevel = `${LABEL_LVL_DEF} ${player.hero.defense}`;
+  const charLevel = `${BUILDING_BASE_ICON} ${player.hero.lvl}`;
+  const armyLeveL = `${BUILDING_ARMY_ICON} ${player.hero.army}`;
+  const defenseLevel = `${BUILDING_DEFENS_ICON} ${player.hero.defense}`;
 
   return (
     <div className="card">

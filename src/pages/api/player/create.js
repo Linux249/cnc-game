@@ -9,9 +9,9 @@ export default async function createPlayer(req, res) {
     id: uuid.v4(),
     buildings: emptyBuilding,
     prod: {
-      metal: 100,
-      gold: 30,
-      power: 40,
+      metal: 0,
+      gold: 0,
+      power: 0,
     },
     bank: {
       metal: 1000,
@@ -20,7 +20,7 @@ export default async function createPlayer(req, res) {
       lastUpdated: Date.now(),
     },
     hero: {
-      level: 1,
+      lvl: 1,
       army: 1,
       defense: 1,
     },

@@ -14,7 +14,7 @@ async function handler(req, res) {
         Key: {
           id: req.query.id,
         },
-        ProjectionExpression: 'bank, prod, hero',
+        ProjectionExpression: 'bank, prod, hero, buildings',
       });
       // console.log(Item);
       if (!Item) return res.status(403).json({ message: 'player not found' });

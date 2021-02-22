@@ -1,42 +1,51 @@
 export const BUILDING_BASE = 0;
-export const BUILDING_METAL = 1;
-export const BUILDING_GOLD = 2;
-export const BUILDING_POWER = 3;
-export const BUILDING_ARMY = 4;
-export const BUILDING_DEFENSE = 5;
+export const BUILDING_POWER = 1;
+export const BUILDING_ARMY = 2;
+export const BUILDING_DEFENSE = 3;
+export const BUILDING_METAL = 4;
+export const BUILDING_GOLD = 5;
 
 export const BUILDING_BASE_ICON = '🎮';
+export const BUILDING_ARMY_ICON = '⚔️';
+export const BUILDING_DEFENS_ICON = '🛡';
 export const BUILDING_METAL_ICON = '🏭';
 export const BUILDING_GOLD_ICON = '⛏';
 export const BUILDING_POWER_ICON = '💥';
-export const BUILDING_ARMY_ICON = '⚔️';
-export const BUILDING_DEFENS_ICON = '🛡';
 
 export const BUILDINGS = [
   BUILDING_BASE,
+  BUILDING_ARMY,
+  BUILDING_DEFENSE,
   BUILDING_METAL,
   BUILDING_GOLD,
   BUILDING_POWER,
-  BUILDING_ARMY,
-  BUILDING_DEFENSE,
 ];
+
+export const BUILDINGS_STRING = {
+  [BUILDING_BASE]: 'lvl',
+  [BUILDING_ARMY]: 'army',
+  [BUILDING_DEFENSE]: 'defense',
+  [BUILDING_METAL]: 'metal',
+  [BUILDING_GOLD]: 'gold',
+  [BUILDING_POWER]: 'power',
+};
 
 export const BUILDINGS_ICONS = [
   BUILDING_BASE_ICON,
+  BUILDING_ARMY_ICON,
+  BUILDING_DEFENS_ICON,
   BUILDING_METAL_ICON,
   BUILDING_GOLD_ICON,
   BUILDING_POWER_ICON,
-  BUILDING_ARMY_ICON,
-  BUILDING_DEFENS_ICON,
 ];
 
 export const BUILDINGS_COSTS = [
   BUILDING_BASE,
+  BUILDING_ARMY,
+  BUILDING_DEFENSE,
   BUILDING_METAL,
   BUILDING_GOLD,
   BUILDING_POWER,
-  BUILDING_ARMY,
-  BUILDING_DEFENSE,
 ];
 // power cost are normal relative to this
 export const POWER_COST_FACTOR = 4;
@@ -48,7 +57,8 @@ export function getBuildingCost(type, lvl) {
 }
 
 export function isProduction(type) {
-  return type === BUILDING_METAL || type === BUILDING_GOLD || type === BUILDING_POWER;
+  console.log('isProduction', type);
+  return +type === BUILDING_METAL || +type === BUILDING_GOLD || +type === BUILDING_POWER;
 }
 
 // per hour
@@ -59,8 +69,34 @@ const GOLD_GROWTH = 1.2;
 const POWER_BASE = METAL_BASE / 2;
 const POWER_GROWTH = 1.2;
 
+/**
+ * returns the current production of an building
+ * @param type
+ * @param lvl
+ * @returns {number}
+ */
 export function getBuildingProduction(type, lvl) {
-  if (type === BUILDING_METAL) return METAL_BASE * METAL_GROWTH ** lvl;
-  if (type === BUILDING_GOLD) return GOLD_BASE * GOLD_GROWTH ** lvl;
-  if (type === BUILDING_POWER) return POWER_BASE * POWER_GROWTH ** lvl;
+  if (+type === BUILDING_METAL) return METAL_BASE * METAL_GROWTH ** lvl;
+  if (+type === BUILDING_GOLD) return GOLD_BASE * GOLD_GROWTH ** lvl;
+  if (+type === BUILDING_POWER) return POWER_BASE * POWER_GROWTH ** lvl;
+  return 0;
+}
+
+/**
+ * Returns the cost a player had for building this building
+ * - first lvl is free
+ * @param type type of building
+ * @param lvl current level of building
+ * @returns {number[]}
+ */
+export function totalBuildingCost(type, lvl) {
+  let metal = 0;
+  let power = 0;
+  for (let i = 1; i < lvl; i++) {
+    const cost = getBuildingCost(type, i);
+    metal += cost;
+    power += cost / POWER_COST_FACTOR;
+  }
+
+  return [metal, power];
 }

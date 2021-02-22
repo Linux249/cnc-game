@@ -1,5 +1,12 @@
 import dynamoDb from '../../../lib/db';
-import { getBuildingCost, POWER_COST_FACTOR } from '../../../static/buildings';
+import {
+  BUILDINGS_STRING,
+  getBuildingCost,
+  getBuildingProduction,
+  isProduction,
+  POWER_COST_FACTOR,
+  totalBuildingCost,
+} from '../../../static/buildings';
 
 const BUILDING_MAX_LEVEL = 50;
 
@@ -23,44 +30,82 @@ async function upgradeBuilding(req, res) {
     Key: {
       id: id,
     },
-    ProjectionExpression: 'buildings, bank',
+    ProjectionExpression: `buildings[${p}]`,
   });
 
-  console.log(Item);
   if (!Item) return res.status(406).json({ message: 'missing param id or p' });
-  const { buildings, bank } = Item;
+  let building = Item.buildings[0];
+  console.log('building:', building, type);
+  // Defaults
+  let UpdateExpression = '';
+  const ExpressionAttributeValues = {};
   if (type) {
-    if (type === '-1') {
+    if (type === '-1' && building) {
       // -1 = delete,
       // todo give resources back on delete
-      buildings[p] = null;
+      UpdateExpression += `SET buildings[${p}] = :bu`;
+      ExpressionAttributeValues[':bu'] = null;
+
+      // reset recourses
+      const [metal, power] = totalBuildingCost(building.type, building.lvl);
+      console.log('delete building: ', metal, power);
+      UpdateExpression += ` ADD bank.metal :m, bank.power :p`;
+      ExpressionAttributeValues[':m'] = metal;
+      ExpressionAttributeValues[':p'] = power;
+      // todo update production
+      if (isProduction(building.type)) {
+        let prod = 0;
+        for (let i = 1; i <= building.lvl; i++) {
+          prod += getBuildingProduction(building.type, building.lvl);
+        }
+        UpdateExpression += `, prod.${BUILDINGS_STRING[building.type]} :p`;
+        ExpressionAttributeValues[':p'] = -prod;
+      }
     } else {
       // else create building
       console.log('create building');
-      buildings[p] = {
+      UpdateExpression += `SET buildings[${p}] = :bu`;
+      ExpressionAttributeValues[':bu'] = {
         type,
         lvl: 1,
       };
+      // todo update production
+      if (isProduction(type)) {
+        const prod = getBuildingProduction(type, 1);
+        UpdateExpression += ` Add prod.${BUILDINGS_STRING[type]} :p`;
+        ExpressionAttributeValues[':p'] = prod;
+      } else {
+        UpdateExpression += `, hero.${BUILDINGS_STRING[type]} = :h`;
+        ExpressionAttributeValues[':h'] = 1;
+      }
     }
-  } else if (buildings[p] && buildings[p].lvl < BUILDING_MAX_LEVEL) {
+  } else if (building && building.lvl < BUILDING_MAX_LEVEL) {
     // increase level
-    console.log('increase level');
-    const cost = getBuildingCost(buildings[p].type, buildings[p].lvl);
-    buildings[p].lvl += 1;
-    bank.metal -= cost;
-    bank.power -= cost / POWER_COST_FACTOR;
+    console.log('increase lvl');
+    const cost = getBuildingCost(building.type, building.lvl);
     // reduce costs from bank
+    UpdateExpression += ` ADD buildings[${p}].lvl :l, bank.metal :m, bank.power :p`;
+    ExpressionAttributeValues[':l'] = 1;
+    ExpressionAttributeValues[':m'] = -cost;
+    ExpressionAttributeValues[':p'] = -cost / POWER_COST_FACTOR;
+    // todo update production
+    if (isProduction(building.type)) {
+      const prod = getBuildingProduction(building.type, building.lvl + 1);
+      UpdateExpression += `, prod.${BUILDINGS_STRING[building.type]} :prod`;
+      ExpressionAttributeValues[':prod'] = prod;
+    } else {
+      UpdateExpression += `, hero.${BUILDINGS_STRING[building.type]} :h`;
+      ExpressionAttributeValues[':h'] = 1;
+    }
   }
 
+  console.log(UpdateExpression, ExpressionAttributeValues);
   const { Attributes } = await dynamoDb.update({
     Key: {
       id: id,
     },
-    UpdateExpression: 'SET buildings = :bu, bank = :ba',
-    ExpressionAttributeValues: {
-      ':bu': buildings,
-      ':ba': bank,
-    },
+    UpdateExpression,
+    ExpressionAttributeValues,
     ReturnValues: 'ALL_NEW',
   });
 
