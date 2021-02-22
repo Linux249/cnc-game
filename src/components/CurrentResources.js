@@ -1,19 +1,18 @@
 import useSWR from 'swr';
-import { devPlayerId } from '../static';
 import { LABEL_GOLD, LABEL_METAL, LABEL_POWER, LABEL_XP } from '../static/labels';
 import { short } from '../util';
 import Button from './Button';
 import Loading from './Loading';
 
-export default function CurrentResources() {
+export default function CurrentResources({ id }) {
   // todo update in interval or through "requests"
-  const { data, isValidating } = useSWR('/api/resources?id=' + devPlayerId, {
+  const { data, isValidating } = useSWR('/api/resources?id=' + id, {
     refreshInterval: 20000,
   });
-  console.log('CurrentResources', { data, id: devPlayerId });
+  console.log('CurrentResources', { data, id: id });
 
   function reset() {
-    return fetch('/api/resources/reset?id=' + devPlayerId);
+    return fetch('/api/resources/reset?id=' + id);
   }
 
   const metal = short(data?.bank.metal);

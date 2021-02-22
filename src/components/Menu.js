@@ -1,10 +1,8 @@
-import { useState } from 'react';
 import useSWR from 'swr';
 import Button from './Button';
 import Char from './Char';
 
-export default function Menu() {
-  const [id, setID] = useState(null);
+export default function Menu({ id, setID }) {
   const { data: players } = useSWR('/api/player');
   console.log(players);
 

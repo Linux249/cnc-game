@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import useSWR from 'swr';
-import { devPlayerId } from '../static';
 import { BUILDINGS_ICONS } from '../static/buildings';
 import { LABEL_LEVEL } from '../static/labels';
 import BuildingMenu from './BuildingMenu';
+import CurrentResources from './CurrentResources';
 
 function Building({ building, select, active }) {
   console.log(active);
@@ -26,9 +26,9 @@ function Building({ building, select, active }) {
   );
 }
 
-export default function Base() {
+export default function Base({ id }) {
   const [selected, setSelected] = useState(null);
-  const { data: buildings } = useSWR('/api/buildings?id=' + devPlayerId);
+  const { data: buildings } = useSWR(`/api/buildings?id=${id}`);
 
   function handleSelect(p) {
     console.log('select ', p);
@@ -38,19 +38,22 @@ export default function Base() {
   const selectedSlot = buildings && buildings[selected];
 
   return (
-    <div className="flex">
-      <div className="card">
-        <h1>base</h1>
-        <h6>Selected: {selected}</h6>
-        <div className="grid grid-cols-3 gap-8">
-          {buildings?.map((b, i) => (
-            <Building building={b} select={() => handleSelect(i)} active={selected === i} />
-          ))}
+    <>
+      <CurrentResources id={id} />
+      <div className="flex">
+        <div className="card">
+          <h1>base</h1>
+          <h6>Selected: {selected}</h6>
+          <div className="grid grid-cols-3 gap-8">
+            {buildings?.map((b, i) => (
+              <Building building={b} select={() => handleSelect(i)} active={selected === i} />
+            ))}
+          </div>
+        </div>
+        <div className="card w-48">
+          {selected !== null && <BuildingMenu p={selected} selected={selectedSlot} id={id} />}
         </div>
       </div>
-      <div className="card w-48">
-        {selected !== null && <BuildingMenu p={selected} selected={selectedSlot} />}
-      </div>
-    </div>
+    </>
   );
 }

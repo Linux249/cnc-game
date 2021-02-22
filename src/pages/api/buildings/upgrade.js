@@ -84,14 +84,14 @@ async function upgradeBuilding(req, res) {
     console.log('increase lvl');
     const cost = getBuildingCost(building.type, building.lvl);
     // reduce costs from bank
-    UpdateExpression += ` ADD buildings[${p}].lvl :l, bank.metal :m, bank.power :p`;
+    UpdateExpression += `ADD buildings[${p}].lvl :l, bank.metal :m, bank.power :p`;
     ExpressionAttributeValues[':l'] = 1;
     ExpressionAttributeValues[':m'] = -cost;
     ExpressionAttributeValues[':p'] = -cost / POWER_COST_FACTOR;
     // todo update production
     if (isProduction(building.type)) {
       const prod = getBuildingProduction(building.type, building.lvl + 1);
-      UpdateExpression += `, prod.${BUILDINGS_STRING[building.type]} :prod`;
+      UpdateExpression += ` SET prod.${BUILDINGS_STRING[building.type]} = :prod`;
       ExpressionAttributeValues[':prod'] = prod;
     } else {
       UpdateExpression += `, hero.${BUILDINGS_STRING[building.type]} :h`;

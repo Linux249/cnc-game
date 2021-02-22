@@ -1,8 +1,4 @@
-import { devPlayerId } from '../static';
 import {
-  BUILDING_GOLD,
-  BUILDING_METAL,
-  BUILDING_POWER,
   BUILDINGS,
   BUILDINGS_ICONS,
   getBuildingCost,
@@ -13,10 +9,10 @@ import {
 import { LABEL_LEVEL, LABEL_METAL, LABEL_POWER } from '../static/labels';
 import { short } from '../util';
 
-function BuildingTypes({ p }) {
+function BuildingTypes({ p, id }) {
   async function createBuilding(type) {
     console.log('createBuilding', p, type);
-    return fetch(`/api/buildings/upgrade?p=${p}&type=${type}&id=${devPlayerId}`);
+    return fetch(`/api/buildings/upgrade?p=${p}&type=${type}&id=${id}`);
   }
 
   return (
@@ -52,20 +48,20 @@ function Production({ building }) {
   );
 }
 
-function SelectedSlot({ selected, p }) {
+function SelectedSlot({ selected, p, id }) {
   console.log({ selected });
-  if (selected === null) return <BuildingTypes p={p} />;
+  if (selected === null) return <BuildingTypes id={id} p={p} />;
 
   const type = +selected.type;
 
   function increaseLevel() {
     console.log('increase level', p);
-    return fetch(`/api/buildings/upgrade?p=${p}&id=${devPlayerId}`);
+    return fetch(`/api/buildings/upgrade?p=${p}&id=${id}`);
   }
 
   function handleDelete() {
     console.log('delete building', p);
-    return fetch(`/api/buildings/upgrade?p=${p}&id=${devPlayerId}&type=-1`);
+    return fetch(`/api/buildings/upgrade?p=${p}&id=${id}&type=-1`);
   }
 
   const cost = getBuildingCost(type, selected.lvl);

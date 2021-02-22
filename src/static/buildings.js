@@ -66,7 +66,7 @@ const METAL_BASE = 100;
 const METAL_GROWTH = 1.2;
 const GOLD_BASE = 10;
 const GOLD_GROWTH = 1.2;
-const POWER_BASE = METAL_BASE / 2;
+const POWER_BASE = 50;
 const POWER_GROWTH = 1.2;
 
 /**

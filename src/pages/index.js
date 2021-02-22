@@ -1,11 +1,13 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import Base from '../components/Base';
 import Card from '../components/Card';
-import CurrentResources from '../components/CurrentResources';
 import Menu from '../components/Menu';
 import Typography from '../components/typography';
 
 export default function Home() {
+  const [id, setID] = useState(null);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
@@ -16,9 +18,8 @@ export default function Home() {
         <h1 className="text-6xl mb-3 font-bold">Welcome to cnc-game</h1>
 
         <Typography />
-        <Menu />
-        <CurrentResources />
-        <Base />
+        <Menu id={id} setID={setID} />
+        {id && <Base id={id} />}
 
         <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
           <Card />
