@@ -37,5 +37,9 @@ button {
 }
 
 .card {
-  @apply p-6 border rounded-xl hover:bg-gray-50;
+  @apply p-6 border rounded-xl;
+}
+
+.icon {
+  @apply px-1.5 shadow rounded-xl;
 }

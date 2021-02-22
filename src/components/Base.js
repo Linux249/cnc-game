@@ -7,9 +7,8 @@ import {
   getBuildingCost,
   POWER_COST_FACTOR,
 } from '../static/buildings';
-import { LABEL_METAL, LABEL_POWER } from '../static/labels';
+import { LABEL_LEVEL, LABEL_METAL, LABEL_POWER } from '../static/labels';
 import { short } from '../util';
-import Button from './Button';
 
 function BuildingTypes({ p }) {
   async function createBuilding(type) {
@@ -19,8 +18,8 @@ function BuildingTypes({ p }) {
 
   return (
     <div>
-      <h1>Select new building</h1>
-      <div className="grid grid-cols-3 text-3xl">
+      <h6>create building</h6>
+      <div className="grid grid-cols-2 text-5xl gap-1 mt-2">
         {BUILDINGS.map(b => (
           <span onClick={() => createBuilding(b)}>{BUILDINGS_ICONS[b]}</span>
         ))}
@@ -33,7 +32,7 @@ function SelectedSlot({ selected, p }) {
   console.log({ selected });
   if (selected === null) return <BuildingTypes p={p} />;
 
-  const type = +selected?.type;
+  const type = +selected.type;
 
   function increaseLevel() {
     console.log('increase level', p);
@@ -48,19 +47,25 @@ function SelectedSlot({ selected, p }) {
   const cost = getBuildingCost(type, selected.lvl);
   return (
     <div className="text-left">
-      <div>type: {BUILDINGS_ICONS[type]}</div>
-      <div>lvl: {selected?.lvl}</div>
-      <h4>costs:</h4>
-      <h6>
-        {LABEL_METAL}: {short(cost)}
-      </h6>
-      <h6>
-        {LABEL_POWER}: {short(cost / POWER_COST_FACTOR)}
-      </h6>
-      <div>
-        <Button onClick={increaseLevel} text="upgrade level" />
-        <Button onClick={handleDelete} text="delete" />
+      <span className="text-9xl">{BUILDINGS_ICONS[type]}</span>
+      <div className="flex justify-between">
+        <span>
+          {LABEL_LEVEL} {selected?.lvl}
+        </span>
+        <span className="ml-4 icon bg-gray-300 hover:bg-gray-100 " onClick={increaseLevel}>
+          🆙
+        </span>
+        <span className="ml-2 icon bg-red-100 hover:bg-red-50" onClick={handleDelete}>
+          ❌
+        </span>
       </div>
+      <h6>costs:</h6>
+      <h4>
+        {LABEL_METAL}: {short(cost)}
+      </h4>
+      <h4>
+        {LABEL_POWER}: {short(cost / POWER_COST_FACTOR)}
+      </h4>
     </div>
   );
 }
@@ -72,8 +77,16 @@ function Building({ building, select, active }) {
     : 'bg-gradient-to-r  from-transparent from-red-400 to-blue-400';
   return (
     <div onClick={select} className={'w-32 h-32 ' + cardStyle}>
-      <span className="text-8xl">{BUILDINGS_ICONS[building?.type]}</span>
-      <p>{building?.lvl}</p>
+      <div className="text-7xl text-center m-1">
+        <span>{BUILDINGS_ICONS[building?.type]}</span>
+      </div>
+      {building?.lvl && (
+        <div className="m-2 text-2xl text-center">
+          <span>
+            {LABEL_LEVEL} {building?.lvl}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

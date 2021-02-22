@@ -24,7 +24,7 @@ export default function Menu() {
       <Button onClick={() => fetch('/api/player/create')} text="D: create" />
       <h4>select player</h4>
       {players?.map((p, i) => (
-        <Button onClick={() => select(i)} text={p.id.slice(0, 6)} />
+        <Button onClick={() => select(i)} text={p.id.slice(0, 6)} active={p.id === id} />
       ))}
 
       <h4>delete player</h4>
@@ -37,7 +37,7 @@ export default function Menu() {
       ))}
       <h4>selected player</h4>
       <p>{id}</p>
-      <Char id={id} />
+      {id && <Char id={id} />}
     </div>
   );
 }
