@@ -7,7 +7,7 @@ Content-Type: application/json
 ### expexted return:
 
 # NAME rest the recources
-GET http://localhost:3000/api/resources/reset?id={{id}}
+GET http://localhost:3000/api//army/attack
 Content-Type: application/json
 
 ### expexted return: player
