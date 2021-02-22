@@ -1,16 +1,16 @@
 export const BUILDING_BASE = 0;
-export const BUILDING_POWER = 1;
-export const BUILDING_ARMY = 2;
-export const BUILDING_DEFENSE = 3;
-export const BUILDING_METAL = 4;
-export const BUILDING_GOLD = 5;
+export const BUILDING_ARMY = 1;
+export const BUILDING_DEFENSE = 2;
+export const BUILDING_METAL = 3;
+export const BUILDING_GOLD = 4;
+export const BUILDING_POWER = 5;
 
 export const BUILDING_BASE_ICON = '🎮';
 export const BUILDING_ARMY_ICON = '⚔️';
 export const BUILDING_DEFENS_ICON = '🛡';
 export const BUILDING_METAL_ICON = '🏭';
 export const BUILDING_GOLD_ICON = '⛏';
-export const BUILDING_POWER_ICON = '💥';
+export const BUILDING_POWER_ICON = '⚡️';
 
 export const BUILDINGS = [
   BUILDING_BASE,
