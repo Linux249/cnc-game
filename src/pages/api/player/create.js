@@ -1,7 +1,7 @@
 import * as uuid from 'uuid';
 import dynamoDb from '../../../lib/db';
 
-const emptyBuilding = new Array(5).fill(null);
+const emptyBuilding = new Array(6).fill(null);
 
 export default async function createPlayer(req, res) {
   console.log(req.method, '/api/player/create');

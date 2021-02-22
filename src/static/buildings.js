@@ -46,3 +46,21 @@ const BUILDING_BASE_COST_GROWTH = 1.25;
 export function getBuildingCost(type, lvl) {
   return SILO_BASE_COST * BUILDING_BASE_COST_GROWTH ** lvl;
 }
+
+export function isProduction(type) {
+  return type === BUILDING_METAL || type === BUILDING_GOLD || type === BUILDING_POWER;
+}
+
+// per hour
+const METAL_BASE = 100;
+const METAL_GROWTH = 1.2;
+const GOLD_BASE = 10;
+const GOLD_GROWTH = 1.2;
+const POWER_BASE = METAL_BASE / 2;
+const POWER_GROWTH = 1.2;
+
+export function getBuildingProduction(type, lvl) {
+  if (type === BUILDING_METAL) return METAL_BASE * METAL_GROWTH ** lvl;
+  if (type === BUILDING_GOLD) return GOLD_BASE * GOLD_GROWTH ** lvl;
+  if (type === BUILDING_POWER) return POWER_BASE * POWER_GROWTH ** lvl;
+}
