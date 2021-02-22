@@ -1,5 +1,7 @@
 import dynamoDb from '../../../lib/db';
 import { generateCard } from '../../../static/army';
+import { LABEL_GOLD, LABEL_METAL, LABEL_XP } from '../../../static/labels';
+import { short } from '../../../util';
 
 const ARMY_ATTACK_BASE = 100;
 const ARMY_ATTACK_GROWTH = 1.12;
@@ -34,10 +36,25 @@ export default async function attackCard(req, res) {
   const defenseAttack = DEFENSE_ATTACK_BASE * DEFENSE_ATTACK_GROWTH ** card.lvl * defenseAttackBoni;
 
   const score = (attack / defenseAttack / ((attack + defenseAttack) / 2)) * 100;
+
+  const { Attributes } = await dynamoDb.update({
+    Key: {
+      id: id,
+    },
+    UpdateExpression: 'ADD bank.metal :m, bank.gold :g, bank.xp :xp',
+    ExpressionAttributeValues: {
+      ':m': card.resources.metal * score,
+      ':g': card.resources.gold * score,
+      ':xp': card.resources.xp * score,
+    },
+    ReturnValues: 'ALL_NEW',
+  });
+  console.log(Attributes);
   res.status(200).json({
     attack,
     defenseAttack,
     score,
     card,
+    ...Attributes,
   });
 }
