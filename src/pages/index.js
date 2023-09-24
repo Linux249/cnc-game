@@ -12,10 +12,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Overlay />
       <main className="flex flex-col items-center justify-center flex-1 px-20">
         <h1 className="text-6xl mb-3 font-bold">Welcome to cnc-game</h1>

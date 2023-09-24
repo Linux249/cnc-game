@@ -11,6 +11,12 @@ export default function Menu({ id, setID }) {
     setID(players[i].id);
   }
 
+  async function handleCreate() {
+    const res = await fetch('/api/player/create').then(r => r.json());
+    console.log('handleCreate',res);
+    setID(res.id);
+  }
+
   return (
     <div className="card">
       <h1>Menu</h1>
@@ -19,7 +25,7 @@ export default function Menu({ id, setID }) {
         <Button key={p.id} onClick={() => select(i)} text={p.id.slice(0, 6)} />
       ))}
       <br />
-      <Button onClick={() => fetch('/api/player/create')} text="D: create" />
+      <Button onClick={handleCreate} text="D: create" />
       <h4>select player</h4>
       {players?.map((p, i) => (
         <Button key={p.id} onClick={() => select(i)} text={p.id.slice(0, 6)} active={p.id === id} />

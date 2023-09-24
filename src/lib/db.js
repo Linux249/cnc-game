@@ -1,19 +1,39 @@
-import aws from 'aws-sdk';
+let temp
 
-const client = new aws.DynamoDB.DocumentClient({
-  accessKeyId: process.env.ACCESS_KEY,
-  secretAccessKey: process.env.SECRET_KEY,
-  region: process.env.REGION,
-  params: {
-    TableName: process.env.TABLE_NAME,
+const client = {
+  get: params => {
+    console.log('get', params);
+    return temp
   },
-});
-
-export default {
-  get: params => client.get(params).promise(),
-  put: params => client.put(params).promise(),
-  query: params => client.query(params).promise(),
-  scan: params => client.scan(params).promise(),
-  update: params => client.update(params).promise(),
-  delete: params => client.delete(params).promise(),
+  put: params => {
+    console.log('put', { params });
+    temp = params
+    return params
+  },
+  query: params => {
+    console.log('query', params);
+    return temp
+  },
+  scan: params => {
+    console.log('scan', params);
+    return temp
+  },
+  update: params => {
+    console.log('update', params);
+  },
+  delete: params => {
+    console.log('delete', params);
+  },
 };
+
+
+const rnd = {
+  get: params => client.get(params),
+  put: params => client.put(params),
+  query: params => client.query(params),
+  scan: params => client.scan(params),
+  update: params => client.update(params),
+  delete: params => client.delete(params),
+};
+
+export default rnd;
